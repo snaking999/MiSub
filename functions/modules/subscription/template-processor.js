@@ -1,5 +1,5 @@
 import { groupNodeLinesByRegion } from './region-groups.js';
-import { AI_SERVICE_RULES } from './builtin-rules-provider.js';
+//import { AI_SERVICE_RULES } from './builtin-rules-provider.js';
 import { DNS_PROXY_GROUP } from './safe-dns.js';
 
 /**
