@@ -168,10 +168,10 @@ export function renderClashFromTemplateModel(model) {
         'mode': 'rule',
         'log-level': 'info',
         'external-controller': '127.0.0.1:9090',
-        'dns': resolveSafeDnsConfig(normalizedModel.settings?.customDnsOverride, {
-            mode: normalizedModel.settings?.dnsMode,
-            proxyGroup: DNS_PROXY_GROUP
-        }),
+       // 'dns': resolveSafeDnsConfig(normalizedModel.settings?.customDnsOverride, {
+         //   mode: normalizedModel.settings?.dnsMode,
+           // proxyGroup: DNS_PROXY_GROUP
+       // }),
         'proxies': normalizedModel.proxies,
         'proxy-groups': normalizedModel.groups
             .filter(group =>
