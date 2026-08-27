@@ -26,10 +26,10 @@ export const AI_DOMAIN_RULE_LINES = AI_SERVICE_RULES.flatMap(service =>
     service.domains.map(domain => `DOMAIN-SUFFIX,${domain},🤖 ${service.name}`)
 );
 
-const AI_AUTO_GROUP = '🤖 AI 自动';
-const AI_FALLBACK_GROUP = '🤖 AI 故障转移';
+//const AI_AUTO_GROUP = '🤖 AI 自动';
+//const AI_FALLBACK_GROUP = '🤖 AI 故障转移';
 
-function dnsProxyGroup(proxyNames) {
+//function dnsProxyGroup(proxyNames) {
     return {
         name: DNS_PROXY_GROUP,
         type: 'url-test',
@@ -39,7 +39,7 @@ function dnsProxyGroup(proxyNames) {
     };
 }
 
-function aiPolicyGroups(proxyNames, regionNames, { relay = false } = {}) {
+//function aiPolicyGroups(proxyNames, regionNames, { relay = false } = {}) {
     const nodeCandidates = proxyNames.length > 0 ? proxyNames : ['REJECT'];
     const candidates = [AI_AUTO_GROUP, AI_FALLBACK_GROUP, ...regionNames, MANUAL_SELECT_GROUP];
     if (relay) candidates.push('🔗 链式代理', '🚀 常用节点');
