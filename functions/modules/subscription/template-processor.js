@@ -191,26 +191,26 @@ function pruneInvalidMembers(model) {
     });
 }
 
-function ensureDnsProxyGroup(model) {
-    if (model.groups.some(group => group.name === DNS_PROXY_GROUP)) return;
-    const proxyNames = model.proxies.map(proxy => proxy.name || proxy.tag).filter(Boolean);
-    model.groups.push({
-        name: DNS_PROXY_GROUP,
-        type: 'url-test',
-        members: proxyNames.length > 0 ? proxyNames : ['REJECT'],
-        filters: [],
-        options: {
-            url: 'http://www.gstatic.com/generate_204',
-            interval: 300,
-            tolerance: 50
-        }
-    });
-}
+//function ensureDnsProxyGroup(model) {
+//    if (model.groups.some(group => group.name === DNS_PROXY_GROUP)) return;
+//    const proxyNames = model.proxies.map(proxy => proxy.name || proxy.tag).filter(Boolean);
+//    model.groups.push({
+//        name: DNS_PROXY_GROUP,
+//        type: 'url-test',
+//        members: proxyNames.length > 0 ? proxyNames : ['REJECT'],
+//        filters: [],
+//        options: {
+//            url: 'http://www.gstatic.com/generate_204',
+//            interval: 300,
+//            tolerance: 50
+//        }
+//    });
+//}
 
-function isAiGroupName(name) {
-    const value = String(name || '');
-    return /人工智能|智能\s*ai|(?:^|[^a-z])(ai|claude|openai|gemini|grok|mistral|deepseek|perplexity|copilot)(?=$|[^a-z])/i.test(value);
-}
+//function isAiGroupName(name) {
+//    const value = String(name || '');
+//    return /人工智能|智能\s*ai|(?:^|[^a-z])(ai|claude|openai|gemini|grok|mistral|deepseek|perplexity|copilot)(?=$|[^a-z])/i.test(value);
+//}
 
 function proxyOnlyMembers(members) {
     return Array.from(new Set((Array.isArray(members) ? members : []).filter(member =>
@@ -218,82 +218,82 @@ function proxyOnlyMembers(members) {
     )));
 }
 
-function ensureAiPolicy(model) {
-    const aiGroups = model.groups.filter(group => isAiGroupName(group.name));
-    const mainGroup = model.groups.find(group => !isAiGroupName(group.name) && /选择|proxy|default|global|main/i.test(group.name));
-    const fallbackMembers = proxyOnlyMembers(mainGroup?.members);
-    const preferredMembers = proxyOnlyMembers(aiGroups[0]?.members);
-    const nodeMembers = model.proxies.map(proxy => proxy.name || proxy.tag).filter(Boolean);
-    const aiMembers = Array.from(new Set([
-        ...(preferredMembers.length > 0 ? preferredMembers : fallbackMembers),
-        ...(preferredMembers.length > 0 || fallbackMembers.length > 0 ? [] : nodeMembers)
-    ]));
-    const nodeCandidates = aiMembers.length > 0 ? aiMembers : ['REJECT'];
-
-    aiGroups.forEach(group => {
-        group.members = proxyOnlyMembers(group.members);
-        if (group.members.length === 0) group.members = ['REJECT'];
-    });
-
-    const existingNames = new Set(model.groups.map(group => group.name));
-    if (!existingNames.has('🤖 AI 自动')) {
-        model.groups.push({
-            name: '🤖 AI 自动',
-            type: 'url-test',
-            members: nodeCandidates,
-            filters: [],
-            options: { url: 'http://www.gstatic.com/generate_204', interval: 300, tolerance: 50 }
-        });
-        existingNames.add('🤖 AI 自动');
-    }
-    if (!existingNames.has('🤖 AI 故障转移')) {
-        model.groups.push({
-            name: '🤖 AI 故障转移',
-            type: 'fallback',
-            members: nodeCandidates,
-            filters: [],
-            options: { url: 'http://www.gstatic.com/generate_204', interval: 300, tolerance: 50 }
-        });
-        existingNames.add('🤖 AI 故障转移');
-    }
-    if (!existingNames.has('🤖 智能 AI')) {
-        model.groups.push({
-            name: '🤖 智能 AI',
-            type: 'select',
-            members: ['🤖 AI 自动', '🤖 AI 故障转移']
-        });
-        existingNames.add('🤖 智能 AI');
-    }
-    AI_SERVICE_RULES.forEach(service => {
-        const groupName = `🤖 ${service.name}`;
-        if (!existingNames.has(groupName)) {
-            model.groups.push({
-                name: groupName,
-                type: 'select',
-                members: ['🤖 AI 自动', '🤖 AI 故障转移'],
-                filters: [],
-                options: {}
-            });
-            existingNames.add(groupName);
-        }
-    });
-
-    const existingRules = new Set(model.rules.map(rule => `${rule.type}|${rule.value}|${rule.policy}`));
-    const aiRules = [];
-    AI_SERVICE_RULES.forEach(service => service.domains.forEach(domain => {
-        const rule = {
-            type: 'domain-suffix',
-            value: domain,
-            policy: `🤖 ${service.name}`,
-            source: 'inline',
-            extras: []
-        };
-        const key = `${rule.type}|${rule.value}|${rule.policy}`;
-        if (!existingRules.has(key)) aiRules.push(rule);
-    }));
-    // 保留模板作者已有的精确规则优先级；新服务规则只补缺失项。
-    model.rules = [...model.rules, ...aiRules];
-}
+//function ensureAiPolicy(model) {
+//    const aiGroups = model.groups.filter(group => isAiGroupName(group.name));
+//    const mainGroup = model.groups.find(group => !isAiGroupName(group.name) && /选择|proxy|default|global|main/i.test(group.name));
+ //   const fallbackMembers = proxyOnlyMembers(mainGroup?.members);
+ //   const preferredMembers = proxyOnlyMembers(aiGroups[0]?.members);
+//    const nodeMembers = model.proxies.map(proxy => proxy.name || proxy.tag).filter(Boolean);
+//    const aiMembers = Array.from(new Set([
+//        ...(preferredMembers.length > 0 ? preferredMembers : fallbackMembers),
+//        ...(preferredMembers.length > 0 || fallbackMembers.length > 0 ? [] : nodeMembers)
+//    ]));
+ //   const nodeCandidates = aiMembers.length > 0 ? aiMembers : ['REJECT'];
+//
+ //   aiGroups.forEach(group => {
+//        group.members = proxyOnlyMembers(group.members);
+//        if (group.members.length === 0) group.members = ['REJECT'];
+//    });
+//
+//    const existingNames = new Set(model.groups.map(group => group.name));
+//    if (!existingNames.has('🤖 AI 自动')) {
+//        model.groups.push({
+ //           name: '🤖 AI 自动',
+ //           type: 'url-test',
+ //           members: nodeCandidates,
+//            filters: [],
+//            options: { url: 'http://www.gstatic.com/generate_204', interval: 300, tolerance: 50 }
+//        });
+//        existingNames.add('🤖 AI 自动');
+//    }
+//    if (!existingNames.has('🤖 AI 故障转移')) {
+//        model.groups.push({
+//            name: '🤖 AI 故障转移',
+//            type: 'fallback',
+//            members: nodeCandidates,
+//            filters: [],
+//            options: { url: 'http://www.gstatic.com/generate_204', interval: 300, tolerance: 50 }
+//        });
+//        existingNames.add('🤖 AI 故障转移');
+//    }
+//    if (!existingNames.has('🤖 智能 AI')) {
+//        model.groups.push({
+//            name: '🤖 智能 AI',
+//            type: 'select',
+//            members: ['🤖 AI 自动', '🤖 AI 故障转移']
+ //       });
+//        existingNames.add('🤖 智能 AI');
+//    }
+//    AI_SERVICE_RULES.forEach(service => {
+//        const groupName = `🤖 ${service.name}`;
+//        if (!existingNames.has(groupName)) {
+//            model.groups.push({
+//                name: groupName,
+//                type: 'select',
+//                members: ['🤖 AI 自动', '🤖 AI 故障转移'],
+ //               filters: [],
+//                options: {}
+//            });
+//            existingNames.add(groupName);
+//        }
+//    });
+//
+//    const existingRules = new Set(model.rules.map(rule => `${rule.type}|${rule.value}|${rule.policy}`));
+//    const aiRules = [];
+//    AI_SERVICE_RULES.forEach(service => service.domains.forEach(domain => {
+//        const rule = {
+//            type: 'domain-suffix',
+//            value: domain,
+//            policy: `🤖 ${service.name}`,
+//            source: 'inline',
+//            extras: []
+//        };
+//        const key = `${rule.type}|${rule.value}|${rule.policy}`;
+//        if (!existingRules.has(key)) aiRules.push(rule);
+//    }));
+//    // 保留模板作者已有的精确规则优先级；新服务规则只补缺失项。
+//    model.rules = [...model.rules, ...aiRules];
+//}
 
 /**
  * 模板模型智能优化器（主入口）
