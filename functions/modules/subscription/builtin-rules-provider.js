@@ -30,31 +30,31 @@ export const AI_DOMAIN_RULE_LINES = AI_SERVICE_RULES.flatMap(service =>
 //const AI_FALLBACK_GROUP = '🤖 AI 故障转移';
 
 //function dnsProxyGroup(proxyNames) {
-    return {
-        name: DNS_PROXY_GROUP,
-        type: 'url-test',
-        proxies: proxyNames.length > 0 ? proxyNames : ['REJECT'],
-        hidden: true,
-        options: { url: 'http://www.gstatic.com/generate_204', interval: 300, tolerance: 50 }
-    };
-}
+//    return {
+//        name: DNS_PROXY_GROUP,
+//        type: 'url-test',
+//        proxies: proxyNames.length > 0 ? proxyNames : ['REJECT'],
+//        hidden: true,
+//        options: { url: 'http://www.gstatic.com/generate_204', interval: 300, tolerance: 50 }
+//    };
+//}
 
 //function aiPolicyGroups(proxyNames, regionNames, { relay = false } = {}) {
-    const nodeCandidates = proxyNames.length > 0 ? proxyNames : ['REJECT'];
-    const candidates = [AI_AUTO_GROUP, AI_FALLBACK_GROUP, ...regionNames, MANUAL_SELECT_GROUP];
-    if (relay) candidates.push('🔗 链式代理', '🚀 常用节点');
+//    const nodeCandidates = proxyNames.length > 0 ? proxyNames : ['REJECT'];
+//    const candidates = [AI_AUTO_GROUP, AI_FALLBACK_GROUP, ...regionNames, MANUAL_SELECT_GROUP];
+//    if (relay) candidates.push('🔗 链式代理', '🚀 常用节点');
 
-    return [
-        { name: AI_AUTO_GROUP, type: 'url-test', proxies: nodeCandidates, hidden: true, options: { url: 'http://www.gstatic.com/generate_204', interval: 300, tolerance: 50 } },
-        { name: AI_FALLBACK_GROUP, type: 'fallback', proxies: nodeCandidates, hidden: true, options: { url: 'http://www.gstatic.com/generate_204', interval: 300, tolerance: 50 } },
-        { name: '🤖 智能 AI', type: 'select', proxies: candidates },
-        ...AI_SERVICE_RULES.map(service => ({
-            name: `🤖 ${service.name}`,
-            type: 'select',
-            proxies: candidates
-        }))
-    ];
-}
+//    return [
+//        { name: AI_AUTO_GROUP, type: 'url-test', proxies: nodeCandidates, hidden: true, options: { url: 'http://www.gstatic.com/generate_204', interval: 300, tolerance: 50 } },
+//        { name: AI_FALLBACK_GROUP, type: 'fallback', proxies: nodeCandidates, hidden: true, options: { url: 'http://www.gstatic.com/generate_204', interval: 300, tolerance: 50 } },
+//        { name: '🤖 智能 AI', type: 'select', proxies: candidates },
+//        ...AI_SERVICE_RULES.map(service => ({
+//            name: `🤖 ${service.name}`,
+//            type: 'select',
+//            proxies: candidates
+//        }))
+//    ];
+//}
 
 /**
  * 自动生成地区策略组（通用中间格式）
