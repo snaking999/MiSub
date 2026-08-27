@@ -106,12 +106,12 @@ export function pruneProxyGroups(proxyGroups, proxies) {
             return validTargetNames.has(member);
         });
 
-        // 兜底逻辑
-       // const failClosed = String(group.name || '').startsWith('🤖') || group.name === DNS_PROXY_GROUP;
-       // return {
-       //     ...group,
-       //     proxies: newProxies.length > 0 ? newProxies : [failClosed ? 'REJECT' : 'DIRECT']
-       // };
+         兜底逻辑
+        const failClosed = String(group.name || '').startsWith('🤖') || group.name === DNS_PROXY_GROUP;
+        return {
+            ...group,
+            proxies: newProxies.length > 0 ? newProxies : [failClosed ? 'REJECT' : 'DIRECT']
+        };
     });
 }
 
