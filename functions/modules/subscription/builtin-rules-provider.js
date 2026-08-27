@@ -10,21 +10,21 @@ export const AUTO_SELECT_GROUP = '♻️ 自动选择';
 export const FALLBACK_GROUP = '🔯 故障转移';
 export const MANUAL_SELECT_GROUP = '👋 手动切换';
 
-//export const AI_SERVICE_RULES = Object.freeze([
-//    { id: 'openai', name: 'OpenAI', domains: ['openai.com', 'chatgpt.com', 'oaistatic.com', 'oaiusercontent.com', 'auth0.openai.com'] },
-//    { id: 'claude', name: 'Claude', domains: ['anthropic.com', 'claude.ai', 'claude.com', 'claudeusercontent.com', 'anthropicusercontent.com'] },
-//    { id: 'gemini', name: 'Gemini', domains: ['gemini.google.com', 'aistudio.google.com', 'generativelanguage.googleapis.com', 'ai.google.dev', 'makersuite.google.com'] },
-//    { id: 'copilot', name: 'Copilot', domains: ['copilot.microsoft.com', 'githubcopilot.com', 'api.githubcopilot.com'] },
-//    { id: 'grok', name: 'Grok', domains: ['x.ai', 'grok.com', 'grok.x.com'] },
-//    { id: 'perplexity', name: 'Perplexity', domains: ['perplexity.ai', 'pplx.ai'] },
-//    { id: 'mistral', name: 'Mistral', domains: ['mistral.ai'] },
-//    { id: 'deepseek', name: 'DeepSeek', domains: ['deepseek.com', 'chat.deepseek.com', 'api.deepseek.com'] },
-//    { id: 'ai-platforms', name: 'AI 平台', domains: ['poe.com', 'character.ai', 'huggingface.co', 'replicate.com', 'openrouter.ai', 'groq.com', 'cohere.com'] }
-//]);
+export const AI_SERVICE_RULES = Object.freeze([
+    { id: 'openai', name: 'OpenAI', domains: ['openai.com', 'chatgpt.com', 'oaistatic.com', 'oaiusercontent.com', 'auth0.openai.com'] },
+    { id: 'claude', name: 'Claude', domains: ['anthropic.com', 'claude.ai', 'claude.com', 'claudeusercontent.com', 'anthropicusercontent.com'] },
+    { id: 'gemini', name: 'Gemini', domains: ['gemini.google.com', 'aistudio.google.com', 'generativelanguage.googleapis.com', 'ai.google.dev', 'makersuite.google.com'] },
+    { id: 'copilot', name: 'Copilot', domains: ['copilot.microsoft.com', 'githubcopilot.com', 'api.githubcopilot.com'] },
+    { id: 'grok', name: 'Grok', domains: ['x.ai', 'grok.com', 'grok.x.com'] },
+    { id: 'perplexity', name: 'Perplexity', domains: ['perplexity.ai', 'pplx.ai'] },
+    { id: 'mistral', name: 'Mistral', domains: ['mistral.ai'] },
+    { id: 'deepseek', name: 'DeepSeek', domains: ['deepseek.com', 'chat.deepseek.com', 'api.deepseek.com'] },
+    { id: 'ai-platforms', name: 'AI 平台', domains: ['poe.com', 'character.ai', 'huggingface.co', 'replicate.com', 'openrouter.ai', 'groq.com', 'cohere.com'] }
+]);
 
-//export const AI_DOMAIN_RULE_LINES = AI_SERVICE_RULES.flatMap(service =>
-//    service.domains.map(domain => `DOMAIN-SUFFIX,${domain},🤖 ${service.name}`)
-//);
+export const AI_DOMAIN_RULE_LINES = AI_SERVICE_RULES.flatMap(service =>
+    service.domains.map(domain => `DOMAIN-SUFFIX,${domain},🤖 ${service.name}`)
+);
 
 //const AI_AUTO_GROUP = '🤖 AI 自动';
 //const AI_FALLBACK_GROUP = '🤖 AI 故障转移';
