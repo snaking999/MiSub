@@ -211,7 +211,7 @@ export function generateBuiltinClashConfig(nodeList, options = {}) {
             'log-level': 'info',
             'external-controller': '127.0.0.1:9090',
 
-            'dns': dnsConfig,
+            //'dns': dnsConfig,
 
             'proxies': publicProxies,
             'profile': {
