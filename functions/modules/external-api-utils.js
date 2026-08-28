@@ -7,7 +7,7 @@ export async function getExternalStorageAdapter(env) {
   const storageType = await StorageFactory.getStorageType(env);
   return StorageFactory.createAdapter(env, storageType);
 }
-
+//
 export function createRequestId() {
   try {
     if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
